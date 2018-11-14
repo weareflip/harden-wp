@@ -76,6 +76,10 @@ class CSRFToken {
 	 */
 	public function verifyToken($token)
 	{
+		if (!isset($_SESSION[$this->uid. '_expiry'])) {
+			return false;
+		}
+		
 		$expiry = $_SESSION[$this->uid. '_expiry'];
 
 		// Invalidate if expired
