@@ -24,7 +24,10 @@ class CSRFToken {
 	 */
 	public function __construct($action = '')
 	{
-		session_start();
+		if (session_status() == PHP_SESSION_NONE) {
+			session_start();
+		}
+		
 		$this->uid = $uid = $this->generateUID();
 		$this->action = $action;
 	}
