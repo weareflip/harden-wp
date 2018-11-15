@@ -18,6 +18,15 @@ require_once('includes/class-csrf-token.php');
 @ini_set('session.use_only_cookies', true);
 @ini_set('expose_php', false);
 
+// Start session early if we're on the login page
+if (in_array($_SERVER['PHP_SELF'], [
+	'/wp/wp-login.php',
+	'/cms/wp-login.php',
+	'/public/cms/wp-login.php',
+	'/wp-login.php'
+])) {
+	@session_start();
+}
 
 // Add some security related headers
 add_action('send_headers', function() {
